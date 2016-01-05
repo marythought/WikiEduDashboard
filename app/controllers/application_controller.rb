@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
            status: :unauthorized
   end
 
-  before_action :check_for_expired_oauth_credentials
+  before_action :check_for_invalid_oauth_token
   before_action :check_for_unsupported_browser
   before_action :check_onboarded
 
@@ -54,12 +54,17 @@ class ApplicationController < ActionController::Base
     fail exception unless user_signed_in? && current_user.role(course) >= 0
   end
 
-  def check_for_expired_oauth_credentials
+  def check_for_invalid_oauth_token
     return unless current_user && current_user.wiki_token == 'invalid'
 
     flash[:notice] = t('error.oauth_invalid')
     sign_out current_user
     redirect_to root_path
+  end
+
+  def check_for_expired_oauth_credentials
+    oauth_valid = WikiEdits.verify_oauth_credentials(current_user)
+    render json: { oauth_valid: oauth_valid }
   end
 
   def check_for_unsupported_browser

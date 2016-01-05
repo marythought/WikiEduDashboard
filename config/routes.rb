@@ -152,6 +152,8 @@ Rails.application.routes.draw do
   # Route aliases for React frontend
   get '/course_creator(/*any)' => 'dashboard#index', as: :course_creator
 
+  get '/auth-check' => 'application#check_for_expired_oauth_credentials'
+
   # Errors
   match '/404', to: 'errors#file_not_found', via: :all
   match '/422', to: 'errors#unprocessable', via: :all
