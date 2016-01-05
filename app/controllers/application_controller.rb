@@ -63,7 +63,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_for_expired_oauth_credentials
-    oauth_valid = WikiEdits.verify_oauth_credentials(current_user)
+    oauth_valid = WikiEdits.oauth_credentials_valid?(current_user)
     render json: { oauth_valid: oauth_valid }
   end
 
