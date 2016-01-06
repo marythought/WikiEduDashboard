@@ -29,14 +29,14 @@ ON THE SERVER
 - Assign ownership to yourself for the web directory /var/www
   - $ `sudo chown <username> /var/www`
 
-- Install RVM (Ruby Version Manager) and configure Ruby 2.1.5
+- Install RVM (Ruby Version Manager) and configure Ruby 2.3.0
   - $ `gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3`
   - $ `curl -sSL https://get.rvm.io | sudo bash -s stable`
   - $ `sudo usermod -a -G rvm <username>`
   - logout and back in again so that these settings take effect
-  - $ `rvm install 2.1.5`
-    - This will probably report that ruby-2.1.5 is already installed, but we do this just in case.
-  - $ `rvm --default use 2.1.5`
+  - $ `rvm install 2.3.0`
+    - This will probably report that ruby-2.3.0 is already installed, but we do this just in case.
+  - $ `rvm --default use 2.3.0`
 
 - Install Phusion Passenger module for Apache
   - $ `gem install passenger`
