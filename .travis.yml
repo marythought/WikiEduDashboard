@@ -8,7 +8,10 @@ env:
     AFTER_SUCCESS=''
 
 language: ruby
-rvm: 2.1.5
+rvm:
+  - 2.3.0
+  - 2.1.5
+  - 2.2.4
 sudo: false
 cache:
   apt: true
