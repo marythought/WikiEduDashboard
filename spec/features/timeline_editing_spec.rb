@@ -37,7 +37,7 @@ describe 'timeline editing', type: :feature, js: true do
   before do
     include Devise::TestHelpers, type: :feature
     Capybara.current_driver = :selenium
-    page.driver.browser.manage.window.resize_to(1920, 1080)
+    page.current_window.resize_to(1920, 1080)
 
     create(:cohort)
     create_course
@@ -48,9 +48,9 @@ describe 'timeline editing', type: :feature, js: true do
   it 'lets users delete a week' do
     visit "/courses/#{Course.first.slug}/timeline"
     expect(page).not_to have_content 'Add Assignment'
-    find('span.week__delete-week').click
-    prompt = page.driver.browser.switch_to.alert
-    prompt.accept
+    accept_confirm do
+      find('span.week__delete-week').click
+    end
     expect(page).to have_content 'Add Assignment'
   end
 
@@ -60,12 +60,12 @@ describe 'timeline editing', type: :feature, js: true do
     find('.week-1').hover
     sleep 0.5
     within('.week-1') do
-      first('.block__edit-block').click
-      click_button 'Delete Block'
+      find('.block__edit-block', match: :first).click
+      accept_confirm do
+        click_button 'Delete Block'
+      end
     end
 
-    prompt = page.driver.browser.switch_to.alert
-    prompt.accept
     expect(page).not_to have_content 'Block Title'
   end
 
@@ -76,7 +76,7 @@ describe 'timeline editing', type: :feature, js: true do
     find('.week-1').hover
     sleep 0.5
     within('.week-1') do
-      first('.block__edit-block').click
+      find('.block__edit-block', match: :first).click
     end
     sleep 1
     within(".week-1 .block-kind-#{Block::KINDS['assignment']}") do
@@ -97,18 +97,18 @@ describe 'timeline editing', type: :feature, js: true do
     find(".week-1 .block-kind-#{Block::KINDS['assignment']}").hover
     sleep 0.5
     within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
-      first('.block__edit-block').click
+      find('.block__edit-block', match: :first).click
     end
 
     # Open edit mode for the second block and delete it
     find(".week-1 .block-kind-#{Block::KINDS['in_class']}").hover
     sleep 0.5
     within ".week-1 .block-kind-#{Block::KINDS['in_class']}" do
-      first('.block__edit-block').click
-      click_button 'Delete Block'
+      find('.block__edit-block', match: :first).click
+      accept_confirm do
+        click_button 'Delete Block'
+      end
     end
-    prompt = page.driver.browser.switch_to.alert
-    prompt.accept
 
     # click Save All
     click_button 'Save All'
@@ -122,7 +122,7 @@ describe 'timeline editing', type: :feature, js: true do
     find(".week-1 .block-kind-#{Block::KINDS['assignment']}").hover
     sleep 0.5
     within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
-      first('.block__edit-block').click
+      find('.block__edit-block', match: :first).click
     end
     within 'p.graded' do
       find('input').click

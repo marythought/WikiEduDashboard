@@ -7,7 +7,7 @@ MILESTONE_BLOCK_KIND = 2
 # Remove this after implementing server-side rendering
 def js_visit(path)
   visit path
-  sleep 1
+  expect(page).to have_content 'Explore'
 end
 
 user_count = 10
@@ -18,11 +18,10 @@ slug = 'This_university.foo/This.course_(term_2015)'
 course_start = '2015-01-01'
 course_end = '2015-12-31'
 
-describe 'the course page', type: :feature do
+describe 'the course page', type: :feature, js: true do
   before do
     include Devise::TestHelpers, type: :feature
-    Capybara.current_driver = :selenium
-    page.driver.browser.manage.window.resize_to(1920, 1080)
+    page.current_window.resize_to(1920, 1080)
 
     course = create(:course,
                     id: 10001,
@@ -114,18 +113,15 @@ describe 'the course page', type: :feature do
     Course.update_all_caches
   end
 
-  before :each do
-    js_visit "/courses/#{slug}"
-    sleep 1 # Try to avoid issue where this test fails with 0 rows found.
-  end
+  describe 'overview' do
+    it 'displays title, tab links, stats, description, school, term, dates, milestones' do
+      js_visit "/courses/#{slug}"
 
-  describe 'header', js: true do
-    it 'should display the course title' do
+      # Title in the header
       title_text = 'This.course'
-      expect(page.find('.title')).to have_content title_text
-    end
+      expect(page).to have_content title_text
 
-    it 'should display course-wide statistics' do
+      # Stats
       new_articles = (article_count / 2.to_f).ceil.to_s
       expect(page.find('#articles-created')).to have_content new_articles
       expect(page.find('#total-edits')).to have_content revision_count
@@ -136,62 +132,50 @@ describe 'the course page', type: :feature do
       characters = revision_count * 2
       expect(page.find('#word-count')).to have_content WordCount.from_characters(characters)
       expect(page.find('#view-count')).to have_content article_count * 10
-    end
-  end
 
-  describe 'overview', js: true do
-    it 'should display title' do
+      # Title in the primary overview section
       title = 'This.course'
       expect(page.find('.primary')).to have_content title
-    end
 
-    it 'should display description' do
+      # Description
       description = 'This is a great course'
       expect(page.find('.primary')).to have_content description
-    end
 
-    it 'should display school' do
+      # School
       school = 'This university'
       expect(page.find('.sidebar')).to have_content school
-    end
 
-    it 'should display term' do
+      # Term
       term = 'term 2015'
       expect(page.find('.sidebar')).to have_content term
-    end
 
-    it 'should show the course dates' do
+      # Course dates
       startf = course_start.to_date.strftime('%Y-%m-%d')
       endf = course_end.to_date.strftime('%Y-%m-%d')
       expect(page.find('.sidebar')).to have_content startf
       expect(page.find('.sidebar')).to have_content endf
-    end
-  end
 
-  describe 'navigation bar', js: true do
-    it 'should link to overview' do
+      # Links
       link = "/courses/#{slug}/overview"
       expect(page.has_link?('', href: link)).to be true
-    end
 
-    it 'should link to timeline' do
       link = "/courses/#{slug}/timeline"
       expect(page.has_link?('', href: link)).to be true
-    end
 
-    it 'should link to activity' do
       link = "/courses/#{slug}/activity"
       expect(page.has_link?('', href: link)).to be true
-    end
 
-    it 'should link to students' do
       link = "/courses/#{slug}/students"
       expect(page.has_link?('', href: link)).to be true
-    end
 
-    it 'should link to articles' do
       link = "/courses/#{slug}/articles"
       expect(page.has_link?('', href: link)).to be true
+
+      # Milestones
+      within '.milestones' do
+        expect(page).to have_content 'Milestones'
+        expect(page).to have_content 'blocky block'
+      end
     end
   end
 
@@ -214,20 +198,7 @@ describe 'the course page', type: :feature do
   #   end
   # end
 
-  describe 'overview view', js: true do
-    it 'should be the same as the root view' do
-      root_content = page
-      js_visit "/courses/#{slug}"
-      expect(root_content).to eq(page)
-    end
-
-    it 'displays a list of milestone blocks' do
-      within '.milestones' do
-        expect(page).to have_content 'Milestones'
-        expect(page).to have_content 'blocky block'
-      end
-    end
-
+  describe 'overview details editing' do
     it "doesn't allow null values for course start/end" do
       stub_token_request
       admin = create(:admin, id: User.last.id + 1)
@@ -259,16 +230,14 @@ describe 'the course page', type: :feature do
     end
   end
 
-  describe 'articles edited view', js: true do
-    it 'should display a list of articles' do
+  describe 'articles edited view' do
+    it 'should display a list of articles, and sort articles by class' do
       js_visit "/courses/#{slug}/articles"
+      # List of articles
       rows = page.all('tr.article').count
       expect(rows).to eq(article_count)
-    end
 
-    it 'should sort article by class' do
-      js_visit "/courses/#{slug}/articles"
-      sleep 1 # Try to avoid intermittent test failures
+      # Sorting
       # first click on the Class sorting should sort high to low
       find('th.sortable', text: 'Class').click
       first_rating = page.find(:css, 'table.articles').first('td .rating p')
@@ -282,7 +251,7 @@ describe 'the course page', type: :feature do
     end
   end
 
-  describe 'students view', js: true do
+  describe 'students view' do
     before do
       Revision.last.update_attributes(date: 2.days.ago, user_id: User.first.id)
       CoursesUsers.last.update_attributes(
@@ -304,7 +273,7 @@ describe 'the course page', type: :feature do
     end
   end
 
-  describe 'uploads view', js: true do
+  describe 'uploads view' do
     it 'should display a list of uploads' do
       # First, visit it no uploads
       visit "/courses/#{slug}/uploads"
@@ -318,14 +287,14 @@ describe 'the course page', type: :feature do
     end
   end
 
-  describe 'activity view', js: true do
+  describe 'activity view' do
     it 'should display a list of edits' do
       js_visit "/courses/#{slug}/activity"
       expect(page).to have_content 'Article 1'
     end
   end
 
-  describe '/manual_update', js: true do
+  describe '/manual_update' do
     it 'should update the course cache' do
       user = create(:user, id: user_count + 100)
       course = Course.find(10001)
@@ -342,14 +311,15 @@ describe 'the course page', type: :feature do
       allow(ViewImporter).to receive(:update_views)
       allow(RatingImporter).to receive(:update_ratings)
 
-      js_visit "/courses/#{slug}/manual_update"
+      visit "/courses/#{slug}/manual_update"
+      sleep 3
       js_visit "/courses/#{slug}"
       updated_user_count = user_count + 1
-      expect(page.find('#student-editors')).to have_content updated_user_count
+      expect(page).to have_content "#{updated_user_count} Student Editors"
     end
   end
 
-  describe 'timeline', js: true do
+  describe 'timeline' do
     it 'does not show authenticated links to a logged out user' do
       js_visit "/courses/#{Course.last.slug}/timeline"
 
