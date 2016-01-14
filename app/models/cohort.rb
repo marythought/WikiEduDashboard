@@ -27,7 +27,13 @@ class Cohort < ActiveRecord::Base
   end
 
   def trained_count
-    students_without_nonstudents.trained.count
+    courses.sum(:trained_count)
+  end
+
+  def trained_percent
+    student_count = students_without_nonstudents.count
+    return 100 if student_count == 0
+    100 * trained_count.to_f / student_count
   end
   #################
   # Class methods #
