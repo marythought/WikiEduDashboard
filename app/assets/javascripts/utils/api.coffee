@@ -153,7 +153,7 @@ API =
         rej obj
 
   createAssignment: (opts) ->
-    queryString = "user_id=#{opts.user_id}&course_id=#{opts.course_id}&article_title=#{opts.article_title}&role=#{opts.role}"
+    queryString = "user_id=#{opts.user_id}&course_id=#{opts.course_id}&article_title=#{opts.article_title}&language=#{opts.language}&project=#{opts.project}&role=#{opts.role}"
     new Promise (res, rej) ->
       $.ajax
         type: 'POST',

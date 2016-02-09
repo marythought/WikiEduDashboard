@@ -34,6 +34,12 @@ class AssignmentsManager
       assignment_data['article_id'] = assigned.id
     end
 
+    # FIXME: kludgey
+    wiki = Wiki.get(language: assignment_data['language'], project: assignment_data['project'])
+    assignment_data['wiki_id'] = wiki.id
+    assignment_data.delete('language')
+    assignment_data.delete('project')
+
     assignment = assignment_data['id'] ? Assignment.find_by(id: assignment_data['id']) : nil
     update_assignment assignment_data
 

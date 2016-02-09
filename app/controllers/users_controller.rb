@@ -125,7 +125,7 @@ class UsersController < ApplicationController
   def user_params
     params.permit(
       users: [:id, :wiki_id, :deleted, :email],
-      assignments: [:id, :user_id, :article_title, :role, :course_id, :deleted]
+      assignments: [:id, :user_id, :article_title, :language, :project, :role, :course_id, :deleted]
     )
   end
 end

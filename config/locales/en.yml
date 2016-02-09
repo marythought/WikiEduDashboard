@@ -469,3 +469,7 @@ en:
     unable_to_add_week: >
       You cannot add new weeks when your timeline is full. Delete at least one
       week or change your assignment dates to make room for a new one.
+  wiki_chooser:
+    label: Choose a wiki
+    language: Language
+    project: Project

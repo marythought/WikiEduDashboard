@@ -48,6 +48,7 @@ CourseCreator = React.createClass(
     if ValidationStore.isValid()
       if @state.course.slug?
         # This has to be a window.location set due to our limited ReactJS scope
+        # TODO: Don't hardcode the workflow here.
         if @state.default_course_type == "ClassroomProgramCourse"
           window.location = '/courses/' + @state.course.slug + '/timeline/wizard'
         else
