@@ -17,6 +17,8 @@
 #  language                 :string(10)
 #  average_views            :float(24)
 #  average_views_updated_at :date
+#  wiki_id                  :integer
+#  native_id                :integer
 #
 
 FactoryGirl.define do
@@ -24,5 +26,10 @@ FactoryGirl.define do
     title 'History of biology'
     namespace 0
     language 'en'
+
+    after(:build) do |article|
+      # Fire callbacks to set default values.
+      article.valid?
+    end
   end
 end

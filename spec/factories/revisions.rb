@@ -17,11 +17,19 @@
 #  wp10_previous  :float(24)
 #  ithenticate_id :integer
 #  report_url     :string(255)
+#  wiki_id        :integer
+#  native_id      :integer
+#  page_id        :integer
 #
 
 FactoryGirl.define do
   factory :revision do
     date '2014-12-17'
     characters 1
+
+    after(:build) do |revision|
+      # Fire callbacks to set default values.
+      revision.valid?
+    end
   end
 end
