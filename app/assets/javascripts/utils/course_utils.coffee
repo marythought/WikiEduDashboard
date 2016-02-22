@@ -2,8 +2,11 @@ class CourseUtils
   generateTempId: (course) ->
     title = @slugify course.title.trim()
     school = @slugify course.school.trim()
-    term = @slugify course.term.trim()
-    return "#{school}/#{title}_(#{term})"
+    slug = "#{school}/#{title}"
+    if course.term
+      term = @slugify course.term.trim()
+      slug = "#{slug}_(#{term})"
+    return slug
 
   slugify: (text) ->
     text?.split(" ").join("_")
@@ -17,8 +20,12 @@ class CourseUtils
 
   # This builds i18n interface strings that vary based on state/props.
   i18n: (message_key, prefix, default_prefix = 'courses') ->
-    key_prefix = prefix
-    key_prefix ||= default_prefix
-    I18n.t("#{key_prefix}.#{message_key}")
+    if prefix
+      message = I18n.t("#{prefix}.#{message_key}")
+
+    if !message || message.startsWith("[missing")
+      message = I18n.t("#{default_prefix}.#{message_key}")
+
+    message
 
 module.exports = new CourseUtils()
