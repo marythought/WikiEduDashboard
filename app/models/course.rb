@@ -312,4 +312,8 @@ class Course < ActiveRecord::Base
   def ensure_required_params
     return false unless [title, school, term, slug].count(nil).zero?
   end
+
+  def self.default_course_type
+    return ENV['default_course_type'].constantize
+  end
 end
