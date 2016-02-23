@@ -1,0 +1,28 @@
+%div{class: "stat-display"}
+  %div{class: "stat-display__stat"}
+    %div{class: "stat-display__value"}
+      = presenter.courses.count
+    %small= t "courses.course_description"
+  %div{class: "stat-display__stat popover-trigger"}
+    %div{class: "stat-display__value"}
+      = presenter.cohort.students_without_nonstudents.count
+    %small= t "courses.students"
+    %div{class: "popover dark"}
+      %h4= number_to_human presenter.cohort.trained_percent.to_s + "%"
+      %p= t "users.up_to_date_with_training"
+  %div{class: "stat-display__stat"}
+    %div{class: "stat-display__value"}
+      = number_to_human presenter.word_count
+    %small= t "metrics.word_count"
+  %div{class: "stat-display__stat"}
+    %div{class: "stat-display__value"}
+      = number_to_human presenter.courses.sum(:view_sum)
+    %small= t "metrics.view_count_description"
+  %div{class: "stat-display__stat"}
+    %div{class: "stat-display__value"}
+      = number_to_human presenter.courses.sum(:article_count)
+    %small= t "metrics.articles_edited"
+  %div{class: "stat-display__stat"}
+    %div{class: "stat-display__value"}
+      = number_to_human presenter.courses.sum(:new_article_count)
+    %small= t "metrics.articles_created"
