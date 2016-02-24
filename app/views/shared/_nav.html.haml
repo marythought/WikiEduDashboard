@@ -19,6 +19,9 @@
             = text_field_tag(:q, '', placeholder: t('application.search'))
             %button{type: 'submit'}
               %i.icon.icon-search
+    %ul.top-nav__locale
+      %li.language-selector
+        = image_tag "/assets/images/icon-language.svg"
     %ul.top-nav__login-links
       - if user_signed_in?
         %li

@@ -4,4 +4,6 @@ $ ->
   require("./utils/router.cjsx")
   require("events").EventEmitter.defaultMaxListeners = 30
 
+  $(".language-selector").uls
+
 require './main-utils.coffee'
