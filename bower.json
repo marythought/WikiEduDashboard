@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "jquery": "~2.1.1",
+    "jquery.uls": "adamwight/jquery.uls#bower_config",
     "jquery-ujs": "~1.0.3",
     "list.js": "wintr/list.js#76c5632d86e11711b965878d58e1f4c90f6bcb18",
     "lodash": "~3.9.0",
