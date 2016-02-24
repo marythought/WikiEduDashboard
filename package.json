@@ -73,6 +73,7 @@
     "watchify": "^3.3.1"
   },
   "dependencies": {
+    "gulp-filter": "^3.0.1",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
     "markdown-it": "5.0.0",
     "mcfly": "0.0.10",

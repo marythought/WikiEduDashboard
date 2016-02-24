@@ -3,11 +3,14 @@
 #--------------------------------------------------------
 
 gulp    = require 'gulp'
+add     = require 'gulp-add'
 plugins = require('gulp-load-plugins')()
 config  = require "../config.coffee"
+Filter  = require "gulp-filter"
 flipper = require "gulp-css-flipper"
 revDel  = require 'rev-del'
 utils   = require '../utils.coffee'
+mainBowerFiles = require 'main-bower-files'
 
 #--------------------------------------------------------
 # Compile Stylesheets
@@ -16,11 +19,17 @@ utils   = require '../utils.coffee'
 gulp.task "stylesheets", ->
   style_dir = "#{config.outputPath}/#{config.cssDirectory}"
 
-  stream = gulp.src ["#{config.sourcePath}/#{config.cssDirectory}/#{config.cssMainFiles}.styl"]
+  all_style_files = ["#{config.sourcePath}/#{config.cssDirectory}/#{config.cssMainFiles}.styl"]
+    .concat mainBowerFiles("**/*.css")  # FIXME: Encapsulate in the bower task.
+  stylus_filter = Filter "**/*.styl", restore: true
+
+  stream = gulp.src all_style_files
     .pipe plugins.plumber()
+    .pipe stylus_filter
     .pipe plugins.stylus
       sourcemap:
         inline: config.development
+    .pipe stylus_filter.restore
     .pipe plugins.sourcemaps.init
       loadMaps: true
     .pipe plugins.autoprefixer()
