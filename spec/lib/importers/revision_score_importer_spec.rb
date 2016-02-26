@@ -54,4 +54,8 @@ describe RevisionScoreImporter do
     RevisionScoreImporter.update_revision_scores(Revision.all)
     expect(Revision.find(662106477).wp10).to be_nil
   end
+
+  it 'gets scores across all wikis' do
+    # TODO
+  end
 end

@@ -24,4 +24,19 @@ describe Wiki, type: :model do
       expect { bad_project }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
+
+  describe '#base_url' do
+    it 'generates correct url for wikis' do
+    end
+  end
+
+  describe '#db_name' do
+    it 'generates correct database name' do
+      # TODO
+    end
+
+    it 'shortens "wikipedia" to "wiki"' do
+      # TODO
+    end
+  end
 end

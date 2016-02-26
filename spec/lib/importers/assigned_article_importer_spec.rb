@@ -16,4 +16,8 @@ describe AssignedArticleImporter do
     expect(Assignment.all.count).to eq(102)
     expect(Assignment.where(article_id: nil).count).to eq(1)
   end
+
+  it 'finds missing articles across all wikis' do
+    # TODO
+  end
 end

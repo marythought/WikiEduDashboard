@@ -16,6 +16,10 @@ describe ArticleStatusManager do
       expect(Article.find(1).deleted).to be true
     end
 
+    it 'updates article status over multiple wikis' do
+      # TODO
+    end
+
     it 'should update the ids of articles' do
       create(:article,
              id: 100,
@@ -97,6 +101,10 @@ describe ArticleStatusManager do
       expect(new_article.revisions.count).to eq(1)
     end
 
+    if 'updates article status over multiple wikis' do
+      # TODO
+    end
+
     it 'does not delete articles by mistake if Replica is down' do
       create(:article,
              id: 848,
@@ -110,6 +118,10 @@ describe ArticleStatusManager do
       described_class.update_article_status
       expect(Article.find(848).deleted).to eq(false)
       expect(Article.find(1).deleted).to eq(false)
+    end
+
+    it 'cannot get into race condition with update_constantly' do
+      # TODO
     end
   end
 end

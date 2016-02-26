@@ -296,6 +296,10 @@ describe Course, type: :model do
       expect(url).to eq("https://#{lang}.wikipedia.org/wiki/#{prefix}/UW_Bothell/Conservation_Biology_(Winter_2016)")
       # rubocop:enable Metrics/LineLength
     end
+
+    it 'should return the correct url for a course on any wiki' do
+      # TODO
+    end
   end
 
   describe 'validation' do
@@ -549,6 +553,10 @@ describe Course, type: :model do
       expect(Course.last.class).to eq(Editathon)
     end
 
+    it 'respects default course type' do
+      # TODO
+    end
+
     let(:arbitrary_course_type) { create(:course, type: 'Foo') }
     it 'does not allow creation of arbitrary types' do
       expect { arbitrary_course_type }.to raise_error(ActiveRecord::RecordInvalid)
@@ -569,5 +577,9 @@ describe Course, type: :model do
         expect(course.wiki_edits_enabled?).to be_in([true, false])
       end
     end
+  end
+
+  describe '#home_wiki' do
+    # FIXME: We need to define the intended behavior.
   end
 end

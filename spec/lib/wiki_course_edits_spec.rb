@@ -37,6 +37,10 @@ describe WikiCourseEdits do
                           current_user: user)
       expect(call_count).to eq(2)
     end
+
+    it 'can post to any wiki' do
+      # FIXME: This hasn't been implemented yet.
+    end
   end
 
   describe '#announce_course' do

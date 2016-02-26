@@ -59,6 +59,10 @@ describe RevisionImporter do
         expect(Revision.all.count > 1).to be true
       end
     end
+
+    it 'fetches revisions across all wikis' do
+      # TODO
+    end
   end
 
   describe '.users_with_no_revisions' do

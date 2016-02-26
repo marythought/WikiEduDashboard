@@ -20,5 +20,9 @@ describe DuplicateArticleDeleter do
       expect(undeleted.count).to eq(1)
       expect(undeleted.first.native_id).to eq(second.native_id)
     end
+
+    it 'maintains isolation between wikis' do
+      # TODO
+    end
   end
 end

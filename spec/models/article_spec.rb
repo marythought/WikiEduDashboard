@@ -26,6 +26,12 @@ require "#{Rails.root}/lib/importers/article_importer"
 require "#{Rails.root}/lib/importers/view_importer"
 
 describe Article do
+  describe 'initialization' do
+    it 'sets transitional defaults on creation' do
+      # TODO
+    end
+  end
+
   describe '#update' do
     it 'should do a null update for an article' do
       VCR.use_cassette 'article/update' do
@@ -47,6 +53,10 @@ describe Article do
         article.update
         expect(article.views).to eq(10)
       end
+    end
+
+    it 'sets transitional defaults on update' do
+      # TODO
     end
   end
 

@@ -36,5 +36,9 @@ describe RevisionsCleaner do
       described_class.repair_orphan_revisions
       ArticlesCourses.update_all_caches
     end
+
+    it 'finds revisions on all wikis' do
+      # TODO
+    end
   end
 end

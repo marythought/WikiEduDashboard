@@ -18,6 +18,10 @@ describe RatingImporter do
       RatingImporter.update_ratings(article)
       expect(Article.first.rating).to eq('fa')
     end
+
+    it 'finds ratings on all wikis' do
+      # TODO
+    end
   end
 
   describe '.update_all_ratings and .update_new_ratings' do

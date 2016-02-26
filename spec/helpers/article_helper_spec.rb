@@ -20,6 +20,10 @@ describe ArticleHelper, type: :helper do
       expect(article_url(@draft)).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Draft:My_Awesome_Draft!!!")
       # rubocop:enable Metrics/LineLength
     end
+
+    it 'should return the correct url on any wiki' do
+      # TODO
+    end
   end
 
   describe '.full_title' do

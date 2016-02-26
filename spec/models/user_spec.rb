@@ -126,4 +126,8 @@ describe User do
       expect(permission).to be false
     end
   end
+
+  describe '#home_wiki' do
+    # FIXME: We need to define the intended behavior.
+  end
 end

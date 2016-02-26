@@ -57,5 +57,9 @@ describe CourseStatistics do
       expect(output).to include(Article.find(1))
       expect(output).not_to include(Article.find(101))
     end
+
+    it 'should return articles edited across all wikis' do
+      # TODO
+    end
   end
 end
