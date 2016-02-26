@@ -37,7 +37,7 @@ class Assignment < ActiveRecord::Base
   # Instance methods #
   ####################
   def page_url
-    "#{wiki.base_url}wiki/#{article_title}"
+    "#{wiki.base_url}/wiki/#{article_title}"
   end
 
   # A sibling assignment is an assignment for a different user,

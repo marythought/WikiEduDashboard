@@ -42,7 +42,7 @@ class Revision < ActiveRecord::Base
   def url
     # https://en.wikipedia.org/w/index.php?title=Eva_Hesse&diff=prev&oldid=655980945
     return if article.nil?
-    "#{wiki.base_url}w/index.php?title=#{article.title}&diff=prev&oldid=#{id}"
+    "#{wiki.base_url}/w/index.php?title=#{article.title}&diff=prev&oldid=#{id}"
   end
 
   def update(data={}, save=true)

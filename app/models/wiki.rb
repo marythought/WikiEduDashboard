@@ -47,12 +47,11 @@ class Wiki < ActiveRecord::Base
   # Is this useful?: has_many :article_wiki, :course_wiki, :user_wiki
 
   def base_url
-    # FIXME: trailing slash turns out to be confusing
-    "https://#{language}.#{project}.org/"
+    "https://#{language}.#{project}.org"
   end
 
   def api_url
-    "#{base_url}w/api.php"
+    "#{base_url}/w/api.php"
   end
 
   # Return the database name for a Wikimedia project wiki.

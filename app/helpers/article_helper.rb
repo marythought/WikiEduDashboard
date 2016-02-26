@@ -18,7 +18,7 @@ module ArticleHelper
     return nil if article.nil?
     # TODO: i18n namespace lookup
     prefix = NS[article.namespace]
-    "#{article.wiki.base_url}wiki/#{prefix}#{article.title}"
+    "#{article.wiki.base_url}/wiki/#{prefix}#{article.title}"
   end
 
   def full_title(article)
