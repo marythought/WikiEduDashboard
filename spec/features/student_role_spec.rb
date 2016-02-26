@@ -269,6 +269,18 @@ describe 'Student users', type: :feature, js: true do
     it 'allows same assignment article_title in multiple languages' do
       # TODO
     end
+
+    it 'autocompletes article title based on articles linked with course' do
+      # FIXME: Feature not implemented yet.
+    end
+
+    it 'autocompletes article title from existing wiki titles' do
+      # FIXME: Feature not implemented yet.
+    end
+
+    it 'autocompletes from articles linked with course at higher priority than unlinked articles' do
+      # FIXME: Feature not implemented yet.
+    end
   end
 
   describe 'inputing a reviewed article' do
