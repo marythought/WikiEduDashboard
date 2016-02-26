@@ -8,6 +8,6 @@
 #
 class CommonsWiki < Wiki
   def base_url
-    "https://commons.wikimedia.org/"
+    "https://commons.wikimedia.org"
   end
 end

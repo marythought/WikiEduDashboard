@@ -128,7 +128,7 @@ class WikiEdits
     OAuth::Consumer.new ENV['wikipedia_token'],
                         ENV['wikipedia_secret'],
                         client_options: {
-                          site: @wiki.base_url.gsub('/$', '')
+                          site: @wiki.base_url
                         }
   end
 
