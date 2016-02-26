@@ -229,6 +229,46 @@ describe 'Student users', type: :feature, js: true do
       expect(page.all('tr.students')[1]).to have_content 'Selfie'
       expect(find('tr.students', match: :first)).not_to have_content 'Selfie'
     end
+
+    it 'assigns articles on any wiki' do
+      # TODO
+    end
+
+    it 'validates language code' do
+      # TODO
+    end
+
+    it 'autocompletes language code' do
+      # FIXME: Feature not implemented yet.
+    end
+
+    it 'autocompletes language as native name' do
+      # FIXME: Feature not implemented yet.
+    end
+
+    it 'autocompletes language as translated name' do
+      # FIXME: Feature not implemented yet.
+    end
+
+    it 'parses pasted article url' do
+      # FIXME: Feature not implemented yet.
+    end
+
+    it 'does something reasonable with bad article url' do
+      # FIXME: Feature not implemented yet.
+    end
+
+    it 'collapses wiki chooser when not in use' do
+      # FIXME: Feature not implemented yet.
+    end
+
+    it 'disallows blank article title' do
+      # TODO
+    end
+
+    it 'allows same assignment article_title in multiple languages' do
+      # TODO
+    end
   end
 
   describe 'inputing a reviewed article' do

@@ -86,6 +86,7 @@ describe 'Students Page', type: :feature, js: true do
     context 'logged out' do
       it 'does not display real name' do
         js_visit "/courses/#{@course.slug}/students"
+        # FIXME: Looks like a race condition--wait for an event or timeout instead.
         sleep 1 # Try to avoid issue where this test fails with 0 rows found.
         within 'table.users' do
           expect(page).not_to have_content @user.real_name
@@ -125,6 +126,12 @@ describe 'Students Page', type: :feature, js: true do
           end
         end
       end
+    end
+  end
+
+  describe 'display of user links' do
+    it 'links to the correct home page' do
+      # TODO: including a non-default wiki
     end
   end
 end
