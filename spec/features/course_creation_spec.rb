@@ -454,14 +454,14 @@ describe 'timeline editing', js: true do
   it 'disables reorder up/down buttons when it is the first or last block' do
     visit "/courses/#{Course.last.slug}/timeline"
     click_button 'Arrange Timeline'
-    expect(find('.week-1 .week__block-list > li:first-child button:first-of-type')['disabled'])
-      .to eq(nil)
-    expect(find('.week-1 .week__block-list > li:first-child button:last-of-type')['disabled'])
-      .to eq('true')
-    expect(find('.week-2 .week__block-list > li:last-child button:first-of-type')['disabled'])
-      .to eq('true')
-    expect(find('.week-2 .week__block-list > li:last-child button:last-of-type')['disabled'])
-      .to eq(nil)
+    expect(find('.week-1 .week__block-list > li:first-child button:first-of-type').disabled?)
+      .to eq(false)
+    expect(find('.week-1 .week__block-list > li:first-child button:last-of-type').disabled?)
+      .to eq(true)
+    expect(find('.week-2 .week__block-list > li:last-child button:first-of-type').disabled?)
+      .to eq(true)
+    expect(find('.week-2 .week__block-list > li:last-child button:last-of-type').disabled?)
+      .to eq(false)
   end
 
   it 'allows swapping places with a block' do

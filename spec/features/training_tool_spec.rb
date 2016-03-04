@@ -106,7 +106,7 @@ describe 'Training', type: :feature, js: true do
       click_link 'Start'
       within('.training__slide__nav') { find('.hamburger').click }
       unseen_slide_link = find('.slide__menu__nav__dropdown li:last-child a')
-      expect(unseen_slide_link['disabled']).to eq('true')
+      expect(unseen_slide_link.disabled?).to eq('true')
     end
 
     it 'loads for a logged out user' do
@@ -206,6 +206,6 @@ def find_correct_answer_by_trial_and_error
     end
     click_button 'Check Answer'
     next_button = page.first('a.slide-nav.btn.btn-primary')
-    break unless next_button['disabled'] == 'true'
+    break unless next_button.disabled?
   end
 end
