@@ -47,6 +47,7 @@ before_install:
 
 
 install:
+  - npm install phantomjs-prebuilt -g
   - npm install gulp -g
   - npm install bower -g
   - npm install codeclimate-test-reporter -g
