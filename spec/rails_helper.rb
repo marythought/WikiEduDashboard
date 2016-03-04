@@ -22,6 +22,7 @@ Capybara.save_and_open_page_path = 'tmp/screenshots/'
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app,
     window_size: [1400, 1000],
+    js_errors: false,
     inspector: true
   )
 end
