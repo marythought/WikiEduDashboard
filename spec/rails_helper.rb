@@ -21,7 +21,7 @@ Capybara::Screenshot.prune_strategy = :keep_last_run
 Capybara.save_and_open_page_path = 'tmp/screenshots/'
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app,
-    window_size: [1400, 1000],
+    window_size: [1400, 1080],
     phantomjs_logger: File.open('/dev/null'),
     js_errors: false,
     inspector: true
