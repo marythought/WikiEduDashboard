@@ -314,8 +314,7 @@ describe 'New course creation and editing', type: :feature do
 
       # Now submit the course
       first('a.button').click
-      prompt = page.driver.browser.switch_to.alert
-      prompt.accept
+      accept_prompt
       expect(page).to have_content 'Your course has been submitted.'
 
       Course.last.weeks.each_with_index do |week, i|
