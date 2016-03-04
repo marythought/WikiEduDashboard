@@ -9,21 +9,23 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
+require 'capybara/poltergeist'
 
 Capybara.configure do |config|
-  config.javascript_driver = :webkit
+  config.javascript_driver = :poltergeist
   config.default_max_wait_time = 10
 end
 
-Capybara::Webkit.configure do |config|
-  config.allow_url 'fonts.googleapis.com'
-  config.allow_url 'maxcdn.bootstrapcdn.com'
-  config.allow_url 'cdn.ravenjs.com'
-end
-
-Capybara::Screenshot.webkit_options = { width: 1400, height: 768 }
+Capybara::Screenshot.webkit_options = { width: 1400, height: 1000 }
 Capybara::Screenshot.prune_strategy = :keep_last_run
 Capybara.save_and_open_page_path = 'tmp/screenshots/'
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app,
+    window_size: [1400, 1000],
+    inspector: true
+  )
+end
+
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

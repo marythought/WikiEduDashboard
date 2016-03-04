@@ -70,8 +70,8 @@ end
 
 group :test do
   gem 'rake'
+  gem 'poltergeist'
   gem 'capybara'
-  gem 'capybara-webkit'
   gem 'capybara-screenshot'
   gem 'database_cleaner'
   gem 'webmock'

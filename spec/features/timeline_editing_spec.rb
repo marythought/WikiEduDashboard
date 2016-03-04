@@ -37,8 +37,6 @@ describe 'timeline editing', type: :feature, js: true do
 
   before do
     include Devise::TestHelpers, type: :feature
-    Capybara.current_driver = :selenium
-    page.current_window.resize_to(1920, 1080)
 
     create_course
     login_as create(:admin)
@@ -62,7 +60,7 @@ describe 'timeline editing', type: :feature, js: true do
     within('.week-1') do
       find('.block__edit-block', match: :first).click
       accept_confirm do
-        click_button 'Delete Block'
+        find_button('Delete Block').click
       end
     end
 
