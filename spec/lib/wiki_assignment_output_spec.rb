@@ -4,6 +4,12 @@ require "#{Rails.root}/lib/wiki_assignment_output"
 
 describe WikiAssignmentOutput do
   before do
+    create(:course,
+           id: 10001,
+           title: 'Course Title',
+           school: 'School',
+           term: 'Term',
+           slug: 'School/Course_Title_(Term)')
     create(:assignment,
            id: 1,
            user_id: 3,
@@ -22,12 +28,6 @@ describe WikiAssignmentOutput do
     create(:courses_user,
            user_id: 3,
            course_id: 10001)
-    create(:course,
-           id: 10001,
-           title: 'Course Title',
-           school: 'School',
-           term: 'Term',
-           slug: 'School/Course_Title_(Term)')
   end
 
   describe '.build_assignment_page_content' do
